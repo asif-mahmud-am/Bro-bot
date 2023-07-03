@@ -1,0 +1,16 @@
+version: "1"
+services:
+  server:
+    build: /home/ubuntu/german-chatbot
+    env_file: .env
+    ports:
+      - "8000" ## local-host-port:docker-container-port
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - server
+    ports:
+      - "80:80"
